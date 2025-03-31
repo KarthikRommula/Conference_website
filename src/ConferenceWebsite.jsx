@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import RegistrationTimerOverlay from './RegistrationTimerOverlay.jsx';
 import { 
   Globe, 
   MapPin, 
@@ -32,8 +33,8 @@ const ConferenceWebsite = () => {
   });
   const contentRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const [showRegistrationTimer, setShowRegistrationTimer] = useState(true);
 
-  
   // Navigation Items
   const navItems = useMemo(() => [
     { name: 'Home', tab: 'home', icon: <Globe size={18} /> },
@@ -159,6 +160,11 @@ const ConferenceWebsite = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleCloseTimer = () => {
+    setShowRegistrationTimer(false);
+    console.log("Timer closed");
   };
 
   const renderFooter = () => (
@@ -581,38 +587,46 @@ const ConferenceWebsite = () => {
             <div className="p-6 border-t fixed bottom-0 w-full">
               <p className="text-gray-500 text-sm font-medium mb-3">Connect With Us</p>
               <div className="flex space-x-5">
-              <a 
-  href="https://www.linkedin.com/in/" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors"
->
-  <Linkedin size={22} />
-</a>
+                <a 
+                  href="https://www.linkedin.com/in/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors"
+                >
+                  <Linkedin size={22} />
+                </a>
 
-<a 
-  href="https://twitter.com/" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors"
->
-  <X size={22} />
-</a>
+                <a 
+                  href="https://twitter.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors"
+                >
+                  <X size={22} />
+                </a>
 
-<a 
-  href="mailto:your-email@example.com" 
-  className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors"
->
-  <Mail size={22} />
-</a>
-
+                <a 
+                  href="mailto:your-email@example.com" 
+                  className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors"
+                >
+                  <Mail size={22} />
+                </a>
               </div>
             </div>
           </div>
         </div>
       )}
 
+      {/* Registration Timer */}
+      {showRegistrationTimer && (
+        <RegistrationTimerOverlay 
+          endDate="2025-04-30T00:00:00" 
+          onClose={handleCloseTimer} 
+        />
+      )}
+   <style>{globalStyles}</style>
       <main 
+      
         ref={contentRef} 
         className={`flex-grow pt-16 sm:pt-20 md:pt-24 min-h-screen relative ${isMobileMenuOpen ? 'overflow-hidden' : ''}`}
       >
@@ -625,5 +639,17 @@ const ConferenceWebsite = () => {
     </div>
   );
 };
-
+const globalStyles = `
+  * {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  input, textarea {
+    -webkit-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+  }
+`;
 export default ConferenceWebsite;
