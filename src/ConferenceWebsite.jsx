@@ -33,6 +33,7 @@ const ConferenceWebsite = () => {
   const contentRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
+  
   // Navigation Items
   const navItems = useMemo(() => [
     { name: 'Home', tab: 'home', icon: <Globe size={18} /> },
