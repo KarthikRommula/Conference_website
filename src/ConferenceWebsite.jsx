@@ -477,47 +477,64 @@ const ConferenceWebsite = () => {
           </nav>
 
           {isMobileMenuOpen && (
-            <div className="md:hidden fixed inset-0 bg-white z-40 pt-20 overflow-y-auto">
-              <div className="min-h-screen flex flex-col">
-                <nav className="flex-grow flex flex-col items-center space-y-6 pt-10">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.tab}
-                      onClick={() => {
-                        handleTabChange(item.tab);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className={`
-                        flex items-center space-x-4 text-2xl w-full max-w-md px-6 py-4 rounded-lg
-                        ${activeTab === item.tab 
-                          ? 'bg-blue-100 text-blue-600 font-bold' 
-                          : 'text-gray-600 hover:bg-blue-50'}
-                        transition-colors
-                      `}
-                    >
-                      {React.cloneElement(item.icon, { 
-                        className: activeTab === item.tab 
-                          ? 'text-blue-600' 
-                          : 'text-gray-400',
-                        size: 24 
-                      })}
-                      <span>{item.name}</span>
-                    </button>
-                  ))}
-                </nav>
-                <div className="pb-10 text-center">
-                  <p className="text-gray-500 mb-4">Connect with Us</p>
-                  <div className="flex justify-center space-x-6">
-                    <a href="#" className="text-blue-600 hover:text-blue-800">
-                      <Linkedin size={30} />
-                    </a>
-                    <a href="#" className="text-blue-600 hover:text-blue-800">
-                      <Twitter size={30} />
-                    </a>
-                    <a href="#" className="text-blue-600 hover:text-blue-800">
-                      <Mail size={30} />
-                    </a>
-                  </div>
+             <div className="md:hidden fixed inset-0 z-50">
+    {/* Backdrop overlay with animation */}
+    <div 
+      className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+      onClick={() => setIsMobileMenuOpen(false)}
+    />
+              <div className="absolute inset-y-0 right-0 w-4/5 max-w-sm bg-white shadow-xl transform transition-transform duration-300 ease-in-out flex flex-col">
+              {/* Menu header with close button */}
+              <div className="flex items-center justify-between p-4 border-b">
+              <h2 className="font-bold text-xl text-center tracking-wide uppercase">Menu</h2>
+
+                <button 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-full hover:bg-gray-100"
+                  aria-label="Close menu"
+                >
+                  <X size={20} className="text-gray-600" />
+                </button>
+              </div>
+                 {/* Navigation items */}
+      <nav className="flex-grow overflow-y-auto py-2">
+        {navItems.map((item) => (
+          <button
+            key={item.tab}
+            onClick={() => {
+              handleTabChange(item.tab);
+              setIsMobileMenuOpen(false);
+            }}
+            className={`
+              flex items-center w-full px-5 py-4 
+              ${activeTab === item.tab
+                ? 'bg-blue-50 text-blue-600 font-medium border-l-4 border-blue-600'
+                : 'text-gray-700 hover:bg-gray-50'}
+              transition-colors
+            `}
+          >
+            {React.cloneElement(item.icon, {
+              className: activeTab === item.tab ? 'text-blue-600' : 'text-gray-500',
+              size: 22
+            })}
+            <span className="ml-4">{item.name}</span>
+          </button>
+        ))}
+      </nav>
+                {/* Social links section */}
+      <div className="p-6 border-t">
+        <p className="text-gray-500 text-sm font-medium mb-3">Connect With Us</p>
+        <div className="flex space-x-5">
+          <a href="#" className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors">
+            <Linkedin size={22} />
+          </a>
+          <a href="#" className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors">
+            <Twitter size={22} />
+          </a>
+          <a href="#" className="p-2 rounded-full bg-gray-100 hover:bg-blue-100 hover:text-blue-600 transition-colors">
+            <Mail size={22} />
+          </a>
+        </div>
                 </div>
               </div>
             </div>
